@@ -37,7 +37,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The day of the week, using the locale's weekday names; either the abbreviated or full name may be specified.
      */
-    DAY_OF_WEEK_NAME_ABBREVIATED('a'),
+    DAY_OF_WEEK_TEXT_SHORT('a'),
 
     /**
      * {@code %A} - The day of the week, using the locale's weekday names.
@@ -46,7 +46,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The day of the week, using the locale's weekday names; either the abbreviated or full name may be specified.
      */
-    DAY_OF_WEEK_NAME_FULL('A'),
+    DAY_OF_WEEK_TEXT_FULL('A'),
 
     /**
      * {@code %b} - The month, using the locale's month names.
@@ -55,7 +55,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The month, using the locale's month names; either the abbreviated or full name may be specified.
      */
-    MONTH_NAME_ABBREVIATED('b'),
+    MONTH_OF_YEAR_TEXT_SHORT('b'),
 
     /**
      * {@code %B} - The month, using the locale's month names.
@@ -64,7 +64,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The month, using the locale's month names; either the abbreviated or full name may be specified.
      */
-    MONTH_NAME_FULL('B'),
+    MONTH_OF_YEAR_TEXT_FULL('B'),
 
     /**
      * {@code %c}
@@ -153,7 +153,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - Equivalent to %b.
      */
-    MONTH_NAME_ABBREVIATED_ALIAS('h'),
+    MONTH_TEXT_SHORT_ALIAS('h'),
 
     /**
      * {@code %H}
@@ -162,7 +162,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The hour (24-hour clock) [00,23]; leading zeros shall be permitted but shall not be required.
      */
-    HOUR_24('H'),
+    HOUR_OF_DAY('H'),
 
     /**
      * {@code %I}
@@ -171,7 +171,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The hour (12-hour clock) [01,12]; leading zeros shall be permitted but shall not be required.
      */
-    HOUR_12('I'),
+    HOUR_OF_AMPM('I'),
 
     /**
      * {@code %j}
@@ -189,7 +189,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The month number [01,12]; leading zeros shall be permitted but shall not be required.
      */
-    MONTH('m'),
+    MONTH_OF_YEAR('m'),
 
     /**
      * {@code %M}
@@ -198,7 +198,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The minute [00,59]; leading zeros shall be permitted but shall not be required.
      */
-    MINUTE('M'),
+    MINUTE_OF_HOUR('M'),
 
     /**
      * {@code %n}
@@ -207,7 +207,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - Any white space.
      */
-    IMMEDIATE_WHITESPACE_NEWLINE('n'),
+    LITERAL_WHITESPACE_NEWLINE('n'),
 
     /**
      * {@code %p}
@@ -216,7 +216,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The locale's equivalent of a.m. or p.m.
      */
-    AMPM('p'),
+    AMPM_OF_DAY('p'),
 
     /**
      * {@code %r}
@@ -243,7 +243,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - The seconds [00,60]; leading zeros shall be permitted but shall not be required.
      */
-    SECOND('S'),
+    SECOND_OF_MINUTE('S'),
 
     /**
      * {@code %t}
@@ -252,7 +252,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - Any white space.
      */
-    IMMEDIATE_WHITESPACE_TAB('t'),
+    LITERAL_WHITESPACE_TAB('t'),
 
     /**
      * {@code %T}
@@ -355,7 +355,7 @@ It is expected that in a future version of this standard the default century inf
      *
      * <p>Formatting - Replaced by the offset from UTC in the ISO 8601:2000 standard format ( +hhmm or -hhmm ), or by no characters if no timezone is determinable. For example, "-0430" means 4 hours 30 minutes behind UTC (west of Greenwich). [CX] [Option Start]  If tm_isdst is zero, the standard time offset is used. If tm_isdst is greater than zero, the daylight savings time offset is used. If tm_isdst is negative, no characters are returned. [Option End] [ tm_isdst]
      */
-    ZONE('z'),
+    ZONE_OFFSET('z'),
 
     /**
      * {@code %Z}
@@ -373,7 +373,7 @@ It is expected that in a future version of this standard the default century inf
      *
      * <p>Parsing - Replaced by {@code %}.
      */
-    IMMEDIATE_PERCENT('%'),
+    LITERAL_PERCENT('%'),
     ;
 
     PosixTimeFormatConversionType(final char character) {

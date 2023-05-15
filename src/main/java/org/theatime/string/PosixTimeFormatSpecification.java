@@ -16,6 +16,7 @@
 
 package org.theatime.string;
 
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
 
 /**
@@ -163,6 +164,20 @@ final class PosixTimeFormatSpecification {
                     original);
         }
 
+        PosixTimeFormatSpecification build(final PosixTimeFormatConversionType type, final String original) {
+            return new PosixTimeFormatSpecification(
+                    type,
+                    this.upperCase,
+                    this.changeCase,
+                    this.precision,
+                    this.colons,
+                    this.padding,
+                    this.modifier,
+                    this.isAvailableForFormatting,
+                    this.isAvailableForParsing,
+                    original);
+        }
+
         private boolean upperCase;
         private boolean changeCase;
         private int precision;
@@ -171,6 +186,13 @@ final class PosixTimeFormatSpecification {
         private char modifier;
         private boolean isAvailableForFormatting;
         private boolean isAvailableForParsing;
+    }
+
+    boolean isAvailableForDateTimeFormatterBuilder() {
+        return false;
+    }
+
+    void appendToDateTimeFormatterBuilder(final DateTimeFormatterBuilder formatterBuilder) {
     }
 
     boolean isAvailableForFormatting() {
