@@ -16,63 +16,47 @@
 
 package org.theatime.string;
 
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public final class PosixTimeFormatOptions {
-    private PosixTimeFormatOptions(
-            final boolean isPlusSignAsTerminatingConversionSpecifier,
-            final boolean isUpperCaseLAsTerminatingConversionSpecifier,
-            final boolean isUpperCaseNAsTerminatingConversionSpecifier) {
-        this.isPlusSignAsTerminatingConversionSpecifier = isPlusSignAsTerminatingConversionSpecifier;
-        this.isUpperCaseLAsTerminatingConversionSpecifier = isUpperCaseLAsTerminatingConversionSpecifier;
-        this.isUpperCaseNAsTerminatingConversionSpecifier = isUpperCaseNAsTerminatingConversionSpecifier;
+    private PosixTimeFormatOptions(final Map<PosixTimeFormatOption, Boolean> options) {
+        this.options = options;
     }
 
-    public static PosixTimeFormatOptions of(final PosixTimeFormatOption[] options) {
-        boolean isPlusSignAsTerminatingConversionSpecifier = false;
-        boolean isUpperCaseLAsTerminatingConversionSpecifier = false;
-        boolean isUpperCaseNAsTerminatingConversionSpecifier = false;
+    public static PosixTimeFormatOptions of(final PosixTimeFormatOption... options) {
+        final EnumMap<PosixTimeFormatOption, Boolean> optionsMap = new EnumMap<>(PosixTimeFormatOption.class);
 
         for (final PosixTimeFormatOption option : options) {
             switch (option) {
-                case PLUS_SIGN_AS_TERMINATING_CONVERSION_SPECIFIER:
-                    isPlusSignAsTerminatingConversionSpecifier = true;
-                    break;
-                case UPPERCASE_L_AS_TERMINATING_CONVERSION_SPECIFIER:
-                    isUpperCaseLAsTerminatingConversionSpecifier = true;
-                    break;
-                case UPPERCASE_N_AS_TERMINATING_CONVERSION_SPECIFIER:
-                    isUpperCaseNAsTerminatingConversionSpecifier = true;
+                case GNU_EXTENSION:
+                    optionsMap.put(PosixTimeFormatOption.GNU_EXTENSION, true);
                     break;
                 default:
+                    optionsMap.put(option, true);
                     break;
             }
         }
 
-        return new PosixTimeFormatOptions(
-                isPlusSignAsTerminatingConversionSpecifier,
-                isUpperCaseLAsTerminatingConversionSpecifier,
-                isUpperCaseNAsTerminatingConversionSpecifier);
+        return new PosixTimeFormatOptions(Collections.unmodifiableMap(optionsMap));
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public boolean isPlusSignAsTerminatingConversionSpecifier() {
-        return this.isPlusSignAsTerminatingConversionSpecifier;
+        return this.options.getOrDefault(PosixTimeFormatOption.PLUS_SIGN_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public boolean isUpperCaseLAsTerminatingConversionSpecifier() {
-        return this.isUpperCaseLAsTerminatingConversionSpecifier;
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_L_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public boolean isUpperCaseNAsTerminatingConversionSpecifier() {
-        return this.isUpperCaseNAsTerminatingConversionSpecifier;
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_N_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final boolean isPlusSignAsTerminatingConversionSpecifier;
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final boolean isUpperCaseLAsTerminatingConversionSpecifier;
-    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private final boolean isUpperCaseNAsTerminatingConversionSpecifier;
+    private final Map<PosixTimeFormatOption, Boolean> options;
 }
