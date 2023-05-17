@@ -152,6 +152,9 @@ final class PosixTimeFormatTokenizer {
 
                 case 'F':  // TODO: Get expanded.
                     this.pos++;
+                    if (!this.options.acceptsUpperCaseFForParsing()) {  // GNU extension.
+                        builder.unavailableForParsing();
+                    }
                     return builder.build(PosixTimeFormatConversionType.YEAR_MONTH_DAY,
                                          this.format.substring(posPercent, this.pos));
 
@@ -328,21 +331,21 @@ final class PosixTimeFormatTokenizer {
 
                 case 'L':  // Ruby extension: "%L"
                     this.pos++;
-                    if (this.options.isUpperCaseLAsTerminatingConversionSpecifier()) {
+                    if (this.options.acceptsUpperCaseLAsTerminatingConversionSpecifier()) {
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }
                     return null;
 
                 case 'N':  // Ruby extension: "%N"
                     this.pos++;
-                    if (this.options.isUpperCaseNAsTerminatingConversionSpecifier()) {
+                    if (this.options.acceptsUpperCaseNAsTerminatingConversionSpecifier()) {
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }
                     return null;
 
                 case '+':
                     // Legacy strftime recognizes "%+" as a terminating conversion specifier for date and time (date(1)).
-                    if (this.options.isPlusSignAsTerminatingConversionSpecifier()) {
+                    if (this.options.acceptsPlusSignAsTerminatingConversionSpecifier()) {
                         this.pos++;
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }

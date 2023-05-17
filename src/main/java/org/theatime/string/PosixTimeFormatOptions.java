@@ -33,6 +33,17 @@ public final class PosixTimeFormatOptions {
             switch (option) {
                 case GNU_EXTENSION:
                     optionsMap.put(PosixTimeFormatOption.GNU_EXTENSION, true);
+                    optionsMap.put(PosixTimeFormatOption.UPPERCASE_F_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_G_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.UPPERCASE_G_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_K_AS_TERMINATING_CONVERSION_SPECIFIER, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_L_AS_TERMINATING_CONVERSION_SPECIFIER, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_S_AS_TERMINATING_CONVERSION_SPECIFIER, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_U_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_V_AS_TERMINATING_CONVERSION_SPECIFIER, true);
+                    optionsMap.put(PosixTimeFormatOption.UPPERCASE_V_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.LOWERCASE_Z_FOR_PARSING, true);
+                    optionsMap.put(PosixTimeFormatOption.UPPERCASE_Z_FOR_PARSING, true);
                     break;
                 default:
                     optionsMap.put(option, true);
@@ -44,17 +55,75 @@ public final class PosixTimeFormatOptions {
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    public boolean isPlusSignAsTerminatingConversionSpecifier() {
+    public boolean acceptsUpperCaseFForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_F_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseGForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_G_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsUpperCaseGForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_G_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseKAsTerminatingConversionSpecifier() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_K_AS_TERMINATING_CONVERSION_SPECIFIER, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseLAsTerminatingConversionSpecifier() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_L_AS_TERMINATING_CONVERSION_SPECIFIER, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseSAsTerminatingConversionSpecifier() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_S_AS_TERMINATING_CONVERSION_SPECIFIER, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseUForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_U_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseVAsTerminatingConversionSpecifier() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_V_AS_TERMINATING_CONVERSION_SPECIFIER, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsUpperCaseVForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_V_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsLowerCaseZForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.LOWERCASE_Z_FOR_PARSING, false);
+    }
+
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+    public boolean acceptsUpperCaseZForParsing() {
+        return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_Z_FOR_PARSING, false);
+    }
+
+    public boolean acceptsGnuExtension() {
+        return this.options.getOrDefault(PosixTimeFormatOption.GNU_EXTENSION, false);
+    }
+
+    public boolean acceptsPlusSignAsTerminatingConversionSpecifier() {
         return this.options.getOrDefault(PosixTimeFormatOption.PLUS_SIGN_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    public boolean isUpperCaseLAsTerminatingConversionSpecifier() {
+    public boolean acceptsUpperCaseLAsTerminatingConversionSpecifier() {
         return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_L_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    public boolean isUpperCaseNAsTerminatingConversionSpecifier() {
+    public boolean acceptsUpperCaseNAsTerminatingConversionSpecifier() {
         return this.options.getOrDefault(PosixTimeFormatOption.UPPERCASE_N_AS_TERMINATING_CONVERSION_SPECIFIER, false);
     }
 

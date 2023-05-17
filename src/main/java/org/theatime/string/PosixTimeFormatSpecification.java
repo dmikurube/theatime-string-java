@@ -17,6 +17,8 @@
 package org.theatime.string;
 
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoField;
 import java.util.Objects;
 
 /**
@@ -188,11 +190,20 @@ final class PosixTimeFormatSpecification {
         private boolean isAvailableForParsing;
     }
 
-    boolean isAvailableForDateTimeFormatterBuilder() {
-        return false;
-    }
+    boolean appendToDateTimeFormatterBuilder(final DateTimeFormatterBuilder formatterBuilder) {
+        if ((!this.isAvailableForFormatting) || (!this.isAvailableForParsing)) {
+            // java.time.DateTimeFormatter must be available both for formatting and parsing.
+            return false;
+        }
 
-    void appendToDateTimeFormatterBuilder(final DateTimeFormatterBuilder formatterBuilder) {
+        switch (this.type) {
+            case DAY_OF_WEEK_TEXT_SHORT:
+                formatterBuilder.appendText(ChronoField.DAY_OF_WEEK, TextStyle.SHORT);
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
     boolean isAvailableForFormatting() {
