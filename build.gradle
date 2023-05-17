@@ -17,8 +17,10 @@ configurations {
     compileClasspath.resolutionStrategy.activateDependencyLocking()
     runtimeClasspath.resolutionStrategy.activateDependencyLocking()
 
-    libcTestImplementation.extendsFrom(testImplementation)
-    libcTestRuntimeOnly.extendsFrom(testRuntimeOnly)
+    if (project.hasProperty("libcTest")) {
+        libcTestImplementation.extendsFrom testImplementation
+        libcTestRuntimeOnly.extendsFrom testRuntimeOnly
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -36,12 +38,14 @@ java {
 }
 
 sourceSets {
-    libcTest {
-        java {
-            srcDir "src/libcTest/java"
+    if (project.hasProperty("libcTest")) {
+        libcTest {
+            java {
+                srcDir "src/libcTest/java"
+            }
+            compileClasspath += main.output
+            runtimeClasspath += main.output
         }
-        compileClasspath += main.output
-        runtimeClasspath += main.output
     }
 }
 
