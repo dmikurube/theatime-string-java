@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -78,9 +77,9 @@ class TryStrftime {
                 stdout.write(buffer, 0, lengthRead);
             }
             throw new RuntimeException(
-                    "Detected output in standard error.\n" +
-                    "stdout: " + stdout.toString() + "\n" +
-                    "stderr: " + stderr.toString());
+                    "Detected output in standard error.\n"
+                    + "stdout: " + stdout.toString() + "\n"
+                    + "stderr: " + stderr.toString());
         }
 
         final InputStream stdout = process.getInputStream();
