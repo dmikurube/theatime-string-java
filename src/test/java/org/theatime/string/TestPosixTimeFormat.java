@@ -45,7 +45,7 @@ public class TestPosixTimeFormat {
     public void test1() {
         assertFormat(
                 "%nabc",
-                PosixTimeFormatSpecification.conversion('n', false, false, -1, -1, '\0', '\0', "%n"),
+                PosixTimeFormatSpecification.conversion('n', false, false, -1, -1, ' ', '\0', "%n"),
                 PosixTimeFormatSpecification.ordinaryCharacters("abc"));
     }
 
@@ -54,7 +54,7 @@ public class TestPosixTimeFormat {
         assertFormat(
                 "abc%nabc",
                 PosixTimeFormatSpecification.ordinaryCharacters("abc"),
-                PosixTimeFormatSpecification.conversion('n', false, false, -1, -1, '\0', '\0', "%n"),
+                PosixTimeFormatSpecification.conversion('n', false, false, -1, -1, ' ', '\0', "%n"),
                 PosixTimeFormatSpecification.ordinaryCharacters("abc"));
     }
 
@@ -63,7 +63,7 @@ public class TestPosixTimeFormat {
         assertFormat(
                 "abc%12nabc",
                 PosixTimeFormatSpecification.ordinaryCharacters("abc"),
-                PosixTimeFormatSpecification.conversion('n', false, false, 12, -1, '\0', '\0', "%12n"),
+                PosixTimeFormatSpecification.conversion('n', false, false, 12, -1, ' ', '\0', "%12n"),
                 PosixTimeFormatSpecification.ordinaryCharacters("abc"));
     }
 
@@ -96,7 +96,7 @@ public class TestPosixTimeFormat {
                              Boolean.parseBoolean(expectedChangeCase),
                              Integer.parseInt(expectedPrecision),
                              Integer.parseInt(expectedColons),
-                             (expectedPadding == null || expectedPadding.isEmpty()) ? '\0' : expectedPadding.charAt(0),
+                             (expectedPadding == null || expectedPadding.isEmpty()) ? ' ' : expectedPadding.charAt(0),
                              (expectedModifier == null || expectedModifier.isEmpty()) ? '\0' : expectedModifier.charAt(0),
                              expectedOriginal));
     }
