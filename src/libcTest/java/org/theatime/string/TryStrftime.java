@@ -16,31 +16,39 @@
 
 package org.theatime.string;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 class TryStrftime {
-    /*
-    CRubyCaller(final String rubyPath) {
-        this.rubyPath = rubyPath;
+    TryStrftime(final String path) {
+        this.path = path;
     }
 
-    CRubyCaller() {
-        this("ruby");
-    }
-
-    String getSingleLineFromOneLiner(final String oneLine) throws IOException, InterruptedException {
-        final List<String> result = this.callOneLiner(oneLine);
+    String strftime(final String format)  {
+        final List<String> result;
+        try {
+            result = this.invoke(format);
+        } catch (final IOException ex) {
+            throw new UncheckedIOException(ex);
+        } catch (final InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
         assertEquals(1, result.size());
         return result.get(0);
     }
 
-    List<String> callOneLiner(final String oneLine) throws IOException, InterruptedException {
-        final String oneLineEscaped = oneLine.replaceAll("\'", "\\\'");
-        final ProcessBuilder processBuilder = new ProcessBuilder(this.rubyPath, "-e", oneLineEscaped);
+    List<String> invoke(final String format) throws IOException, InterruptedException {
+        final ProcessBuilder processBuilder = new ProcessBuilder(this.path, format);
         final Map<String, String> environment = processBuilder.environment();
         environment.put("TZ", "UTC");
 
@@ -83,6 +91,5 @@ class TryStrftime {
         return lines;
     }
 
-    private final String rubyPath;
-    */
+    private final String path;
 }

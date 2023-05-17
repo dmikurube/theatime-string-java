@@ -17,10 +17,22 @@
 package org.theatime.string;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestPosixTimeFormatLibc {
+    @Test
+    public void test() {
+        assertStrftime("%c");
+    }
+
+    private static void assertStrftime(final String format) {
+        final String pathTryStrftime = System.getProperty("libcTestTryStrftime");
+        assertNotNull(pathTryStrftime);
+        final String formatted = new TryStrftime(pathTryStrftime).strftime(format);
+        System.out.println(formatted);
+    }
 }

@@ -17,7 +17,7 @@ configurations {
     compileClasspath.resolutionStrategy.activateDependencyLocking()
     runtimeClasspath.resolutionStrategy.activateDependencyLocking()
 
-    if (project.hasProperty("libcTest")) {
+    if (project.hasProperty("libcTestTryStrftime")) {
         libcTestImplementation.extendsFrom testImplementation
         libcTestRuntimeOnly.extendsFrom testRuntimeOnly
     }
@@ -38,7 +38,7 @@ java {
 }
 
 sourceSets {
-    if (project.hasProperty("libcTest")) {
+    if (project.hasProperty("libcTestTryStrftime")) {
         libcTest {
             java {
                 srcDir "src/libcTest/java"
@@ -160,6 +160,25 @@ test {
         showStackTraces = true
         showStandardStreams = true
         outputs.upToDateWhen { false }
+    }
+}
+
+if (project.hasProperty("libcTestTryStrftime")) {
+    task libcTest(type: Test) {
+        systemProperty "libcTestTryStrftime", getProperty("libcTestTryStrftime")
+        classpath = sourceSets.libcTest.runtimeClasspath
+        testClassesDirs = sourceSets.libcTest.output.classesDirs
+
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+            showCauses = true
+            showExceptions = true
+            showStackTraces = true
+            showStandardStreams = true
+            outputs.upToDateWhen { false }
+        }
     }
 }
 

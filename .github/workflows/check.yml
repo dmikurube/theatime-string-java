@@ -38,4 +38,4 @@ jobs:
     - name: Try try_strftime
       run: ./build/libcTestExecutables/try_strftime "%010z"
     - name: Check with libc
-      run: ./gradlew --stacktrace -PlibcTest=true libcTest
+      run: ./gradlew --stacktrace -PlibcTestTryStrftime=build/libcTestExecutables/try_strftime libcTest
