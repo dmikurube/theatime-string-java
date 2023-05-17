@@ -16,6 +16,13 @@ description = "Converts date and time to/from a string."
 configurations {
     compileClasspath.resolutionStrategy.activateDependencyLocking()
     runtimeClasspath.resolutionStrategy.activateDependencyLocking()
+
+    libcTestImplementation {
+        extendsFrom testImplementation
+    }
+    libcTestRuntimeOnly {
+        extendsFrom testRuntimeOnly
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -30,6 +37,16 @@ java {
 
     withJavadocJar()
     withSourcesJar()
+}
+
+sourceSets {
+    libcTest {
+        java {
+            srcDir "src/libcTest/java"
+        }
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
 }
 
 dependencies {
