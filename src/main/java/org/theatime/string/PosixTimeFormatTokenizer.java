@@ -107,47 +107,47 @@ final class PosixTimeFormatTokenizer {
             switch (ch) {
                 case 'a':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_TEXT_SHORT,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_TEXT_SHORT, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'A':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_TEXT_FULL,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_TEXT_FULL, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'b':  // Equivalent to %h.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_SHORT,
+                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_SHORT, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'B':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_FULL,
+                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_FULL, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'c':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DATE_AND_TIME,
+                    return builder.build(PosixTimeFormatConversionType.DATE_AND_TIME, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'C':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.CENTURY,
+                    return builder.build(PosixTimeFormatConversionType.CENTURY, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'd':  // TODO: Just with DAY_OF_MONTH with configuring padding.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_MONTH_ZERO,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_MONTH_ZERO, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'D':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DATE_MDY,
+                    return builder.build(PosixTimeFormatConversionType.DATE_MDY, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'e':  // TODO: Just with DAY_OF_MONTH with configuring padding.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_MONTH_SPACE,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_MONTH_SPACE, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'F':  // TODO: Get expanded.
@@ -155,47 +155,47 @@ final class PosixTimeFormatTokenizer {
                     if (!this.options.acceptsUpperCaseFForParsing()) {  // GNU extension.
                         builder.unavailableForParsing();
                     }
-                    return builder.build(PosixTimeFormatConversionType.YEAR_MONTH_DAY,
+                    return builder.build(PosixTimeFormatConversionType.YEAR_MONTH_DAY, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'g':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.WEEK_BASED_YEAR_OFFSET,
+                    return builder.build(PosixTimeFormatConversionType.WEEK_BASED_YEAR_OFFSET, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'G':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.WEEK_BASED_YEAR_FULL,
+                    return builder.build(PosixTimeFormatConversionType.WEEK_BASED_YEAR_FULL, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'h':  // Equivalent to %b.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_SHORT,
+                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR_TEXT_SHORT, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'H':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_DAY,
+                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_DAY, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'I':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_AMPM,
+                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_AMPM, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'j':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_YEAR,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_YEAR, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'm':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR,
+                    return builder.build(PosixTimeFormatConversionType.MONTH_OF_YEAR, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'M':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.MINUTE_OF_HOUR,
+                    return builder.build(PosixTimeFormatConversionType.MINUTE_OF_HOUR, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'n':
@@ -207,27 +207,27 @@ final class PosixTimeFormatTokenizer {
                     //    irb(main):002:0> Time.now.strftime("%010n")
                     //    => "000000000\n"
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.LITERAL_WHITESPACE_NEWLINE,
+                    return builder.build(PosixTimeFormatConversionType.LITERAL_WHITESPACE_NEWLINE, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'p':  // TODO: Just with AMPM_OF_DAY with configuring case.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.AMPM_OF_DAY,
+                    return builder.build(PosixTimeFormatConversionType.AMPM_OF_DAY, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'r':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.TIME_12_AMPM,
+                    return builder.build(PosixTimeFormatConversionType.TIME_12_AMPM, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'R':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.HOUR_MINUTE_24,
+                    return builder.build(PosixTimeFormatConversionType.HOUR_MINUTE_24, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'S':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.SECOND_OF_MINUTE,
+                    return builder.build(PosixTimeFormatConversionType.SECOND_OF_MINUTE, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 't':
@@ -239,67 +239,69 @@ final class PosixTimeFormatTokenizer {
                     //    irb(main):002:0> Time.now.strftime("%010n")
                     //    => "000000000\n"
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.LITERAL_WHITESPACE_TAB,
+                    return builder.build(PosixTimeFormatConversionType.LITERAL_WHITESPACE_TAB, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'T':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.TIME_24,
+                    return builder.build(PosixTimeFormatConversionType.TIME_24, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'u':  // TODO: Rename with DAY_OF_WEEK.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_1_7,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_1_7, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'U':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_SUNDAY_0,
+                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_SUNDAY_0, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'V':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_MONDAY_1,
+                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_MONDAY_1, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'w':  // TODO: Rename with DAY_OF_WEEK.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_0_6,
+                    return builder.build(PosixTimeFormatConversionType.DAY_OF_WEEK_0_6, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'W':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_MONDAY_0,
+                    return builder.build(PosixTimeFormatConversionType.WEEK_NUMBER_OF_YEAR_MONDAY_0, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'x':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DATE_LOCALE,
+                    return builder.build(PosixTimeFormatConversionType.DATE_LOCALE, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'X':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.TIME_LOCALE,
+                    return builder.build(PosixTimeFormatConversionType.TIME_LOCALE, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'y':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.YEAR_TWO_DIGITS,
+                    return builder.build(PosixTimeFormatConversionType.YEAR_TWO_DIGITS, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'Y':
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.YEAR,
+                    return builder.build(PosixTimeFormatConversionType.YEAR, '0',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'z':
+                    // "%10z" prints "         +0000000000" in glibc.
+                    // TODO: Make a decision on it.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.ZONE_OFFSET,
+                    return builder.build(PosixTimeFormatConversionType.ZONE_OFFSET, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'Z':  // TODO: Rename.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.ZONE_NAME,
+                    return builder.build(PosixTimeFormatConversionType.ZONE_NAME, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case '%':
@@ -311,44 +313,61 @@ final class PosixTimeFormatTokenizer {
                     //    irb(main):002:0> Time.now.strftime("%010n")
                     //    => "000000000\n"
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.LITERAL_PERCENT,
+                    return builder.build(PosixTimeFormatConversionType.LITERAL_PERCENT, ' ',
                                          this.format.substring(posPercent, this.pos));
 
-                case 'P':  // FormatDirective.AMPM_OF_DAY_LOWER_CASE
-
-                case 'Q':  // FormatDirective.MILLISECONDS_SINCE_EPOCH
-                        // %Q is only for parsing, not for formatting. Then, %Q never takes any option.
-                        // So, a token of "%Q" can always be stringified straightforward to "%Q".
-
-                // GNU extensions.
-                case 'k':  // FormatDirective.HOUR_OF_DAY_BLANK_PADDED
-                case 'l':  // FormatDirective.HOUR_OF_AMPM_BLANK_PADDED
-                case 's':  // FormatDirective.SECONDS_SINCE_EPOCH
-                case 'v':  // FormatDirective.RECURRED_LOWER_V
-
+                case 'k':  // GNU extension: blank-padded %H
                     this.pos++;
-                    return builder.build(ch, this.format.substring(posPercent, this.pos));
+                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_DAY, ' ',
+                                         this.format.substring(posPercent, this.pos));
+
+                case 'l':  // GNU extension: blank-padded %I
+                    this.pos++;
+                    return builder.build(PosixTimeFormatConversionType.HOUR_OF_AMPM, ' ',
+                                         this.format.substring(posPercent, this.pos));
+
+                case 'P':  // TODO: Reverse case.
+                    this.pos++;
+                    return builder.build(PosixTimeFormatConversionType.AMPM_OF_DAY, ' ',
+                                         this.format.substring(posPercent, this.pos));
+
+                case 's':  // TODO: SECOND_SINCE_EPOCH
+                    return null;
 
                 case 'L':  // Ruby extension: "%L"
+                    /*
                     this.pos++;
                     if (this.options.acceptsUpperCaseLAsTerminatingConversionSpecifier()) {
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }
+                    */
                     return null;
 
                 case 'N':  // Ruby extension: "%N"
+                    /*
                     this.pos++;
                     if (this.options.acceptsUpperCaseNAsTerminatingConversionSpecifier()) {
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }
+                    */
+                    return null;
+
+                case 'Q':  // Ruby extension: "%Q"
+                    // %Q is only for parsing, not for formatting. Then, %Q never takes any option.
+                    // So, a token of "%Q" can always be stringified straightforward to "%Q".
+                    return null;
+
+                case 'v':  // Ruby extension: "%v"
                     return null;
 
                 case '+':
                     // Legacy strftime recognizes "%+" as a terminating conversion specifier for date and time (date(1)).
+                    /*
                     if (this.options.acceptsPlusSignAsTerminatingConversionSpecifier()) {
                         this.pos++;
                         return builder.build(ch, this.format.substring(posPercent, this.pos));
                     }
+                    */
 
                     // Modern strftime recognizes "%+" as an optional flag.
                     if (hasPrecisionProcessed) {

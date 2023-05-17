@@ -152,28 +152,17 @@ final class PosixTimeFormatSpecification {
             return this;
         }
 
-        PosixTimeFormatSpecification build(final char ch, final String original) {
-            return new PosixTimeFormatSpecification(
-                    PosixTimeFormatConversionType.valueOf(ch),
-                    this.upperCase,
-                    this.changeCase,
-                    this.precision,
-                    this.colons,
-                    this.padding,
-                    this.modifier,
-                    this.isAvailableForFormatting,
-                    this.isAvailableForParsing,
-                    original);
-        }
-
-        PosixTimeFormatSpecification build(final PosixTimeFormatConversionType type, final String original) {
+        PosixTimeFormatSpecification build(
+                final PosixTimeFormatConversionType type,
+                final char paddingIfUnspecified,
+                final String original) {
             return new PosixTimeFormatSpecification(
                     type,
                     this.upperCase,
                     this.changeCase,
                     this.precision,
                     this.colons,
-                    this.padding,
+                    this.padding == '\0' ? paddingIfUnspecified : this.padding,
                     this.modifier,
                     this.isAvailableForFormatting,
                     this.isAvailableForParsing,
