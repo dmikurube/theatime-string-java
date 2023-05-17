@@ -18,11 +18,9 @@ jobs:
         cache: "gradle"
     - name: Check
       run: ./gradlew --stacktrace check
-  checkLibc:
+  check-with-libc:
+    needs: check
     runs-on: ubuntu-latest
-    # push: always run.
-    # pull_request: run only when the PR is submitted from a forked repository, not within this repository.
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
       fail-fast: false
     steps:
@@ -39,3 +37,5 @@ jobs:
       run: gcc -o build/libcTestExecutables/try_strftime src/libcTest/resources/try_strftime.c
     - name: Try try_strftime
       run: ./build/libcTestExecutables/try_strftime "%010z"
+    - name: Check with libc
+      run: ./gradlew --stacktrace -PlibcTest=true libcTest
