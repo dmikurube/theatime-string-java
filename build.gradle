@@ -17,12 +17,8 @@ configurations {
     compileClasspath.resolutionStrategy.activateDependencyLocking()
     runtimeClasspath.resolutionStrategy.activateDependencyLocking()
 
-    libcTestImplementation {
-        extendsFrom testImplementation
-    }
-    libcTestRuntimeOnly {
-        extendsFrom testRuntimeOnly
-    }
+    libcTestImplementation.extendsFrom(testImplementation)
+    libcTestRuntimeOnly.extendsFrom(testRuntimeOnly)
 }
 
 tasks.withType(JavaCompile) {
