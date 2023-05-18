@@ -36,6 +36,6 @@ jobs:
     - name: Compile try_strftime.c
       run: gcc -o build/libcTestExecutables/try_strftime src/libcTest/resources/try_strftime.c
     - name: Try try_strftime
-      run: ./build/libcTestExecutables/try_strftime "%010z"
+      run: ./build/libcTestExecutables/try_strftime "%030c" 2006 1 2 15 4 5 1 2 0
     - name: Check with libc
       run: ./gradlew --stacktrace -PlibcTestTryStrftime=build/libcTestExecutables/try_strftime libcTest

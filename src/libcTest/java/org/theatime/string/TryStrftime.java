@@ -33,10 +33,21 @@ class TryStrftime {
         this.path = path;
     }
 
-    String strftime(final String format)  {
+    String strftime(
+            final String format,
+            final int year,
+            final int monthOfYear,
+            final int dayOfMonth,
+            final int hourOfDay,
+            final int minuteOfHour,
+            final int secondOfMinute,
+            final int dayOfWeek,
+            final int dayOfYear,
+            final int isDst) {
         final List<String> result;
         try {
-            result = this.invoke(format);
+            result = this.invoke(
+                    format, year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, dayOfWeek, dayOfYear, isDst);
         } catch (final IOException ex) {
             throw new UncheckedIOException(ex);
         } catch (final InterruptedException ex) {
@@ -46,8 +57,29 @@ class TryStrftime {
         return result.get(0);
     }
 
-    List<String> invoke(final String format) throws IOException, InterruptedException {
-        final ProcessBuilder processBuilder = new ProcessBuilder(this.path, format);
+    List<String> invoke(
+            final String format,
+            final int year,
+            final int monthOfYear,
+            final int dayOfMonth,
+            final int hourOfDay,
+            final int minuteOfHour,
+            final int secondOfMinute,
+            final int dayOfWeek,
+            final int dayOfYear,
+            final int isDst) throws IOException, InterruptedException {
+        final ProcessBuilder processBuilder = new ProcessBuilder(
+                this.path,
+                format,
+                "" + year,
+                "" + monthOfYear,
+                "" + dayOfMonth,
+                "" + hourOfDay,
+                "" + minuteOfHour,
+                "" + secondOfMinute,
+                "" + dayOfWeek,
+                "" + dayOfYear,
+                "" + isDst);
         final Map<String, String> environment = processBuilder.environment();
         environment.put("TZ", "UTC");
 

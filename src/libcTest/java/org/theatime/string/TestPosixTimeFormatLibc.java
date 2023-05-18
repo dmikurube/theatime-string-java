@@ -16,20 +16,72 @@
 
 package org.theatime.string;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
+import java.time.DayOfWeek;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestPosixTimeFormatLibc {
-    @Test
-    public void test() {
-        assertStrftime("%c");
+    @ParameterizedTest
+    @CsvSource({
+            "%a,2006,1,2,15,4,5,MONDAY,2,0",
+            "%10a,2006,1,2,15,4,5,MONDAY,2,0",
+            "%A,2006,1,2,15,4,5,MONDAY,2,0",
+            "%10A,2006,1,2,15,4,5,MONDAY,2,0"
+    })
+    public void test(
+            final String format,
+            final String year,
+            final String monthOfYear,
+            final String dayOfMonth,
+            final String hourOfDay,
+            final String minuteOfHour,
+            final String secondOfMinute,
+            final String dayOfWeek,
+            final String dayOfYear,
+            final String isDst) {
+        assertStrftime(format,
+                       Integer.parseInt(year),
+                       Integer.parseInt(monthOfYear),
+                       Integer.parseInt(dayOfMonth),
+                       Integer.parseInt(hourOfDay),
+                       Integer.parseInt(minuteOfHour),
+                       Integer.parseInt(secondOfMinute),
+                       DayOfWeek.valueOf(dayOfWeek),
+                       Integer.parseInt(dayOfYear),
+                       Integer.parseInt(isDst));
     }
 
-    private static void assertStrftime(final String format) {
+    private static void assertStrftime(
+            final String format,
+            final int year,
+            final int monthOfYear,
+            final int dayOfMonth,
+            final int hourOfDay,
+            final int minuteOfHour,
+            final int secondOfMinute,
+            final DayOfWeek dayOfWeek,
+            final int dayOfYear,
+            final int isDst) {
         final String pathTryStrftime = System.getProperty("libcTestTryStrftime");
         assertNotNull(pathTryStrftime);
-        final String formatted = new TryStrftime(pathTryStrftime).strftime(format);
-        System.out.println(formatted);
+        final String expectedFormatted = new TryStrftime(pathTryStrftime).strftime(
+                format, year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, dayOfWeek.getValue(), dayOfYear, isDst);
+
+        final DateTimeFormatter actualFormatter = PosixTimeFormat.compileToDateTimeFormatter(format);
+        final OffsetDateTime actualDateTime = OffsetDateTime.of(
+                year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, 0, ZoneOffset.UTC);
+        assertEquals(dayOfWeek, actualDateTime.getDayOfWeek());
+        assertEquals(dayOfYear, actualDateTime.getDayOfYear());
+        final String actualFormatted = actualFormatter.format(actualDateTime);
+
+        System.out.println("\"" + expectedFormatted + "\"");
+        System.out.println("\"" + actualFormatted + "\"");
+        assertEquals(expectedFormatted, actualFormatted);
     }
 }

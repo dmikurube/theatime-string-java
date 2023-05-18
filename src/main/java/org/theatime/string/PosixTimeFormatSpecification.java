@@ -39,7 +39,12 @@ final class PosixTimeFormatSpecification {
             final boolean isAvailableForFormatting,
             final boolean isAvailableForParsing,
             final String original) {
-        assert isAvailableForFormatting || isAvailableForParsing;
+        if (type == null) {
+            throw new NullPointerException("PosixTimeFormatConversionType is null");
+        }
+        if ((!isAvailableForFormatting) && (!isAvailableForParsing)) {
+            throw new IllegalArgumentException("Unavailable neither for formatting nor parsing.");
+        }
 
         this.type = type;
 
@@ -53,33 +58,24 @@ final class PosixTimeFormatSpecification {
         this.isAvailableForParsing = isAvailableForParsing;
 
         this.original = original;
-
-        this.ordinaryCharacters = null;
-    }
-
-    private PosixTimeFormatSpecification(final String ordinaryCharacters) {
-        this.type = null;
-
-        this.upperCase = false;
-        this.changeCase = false;
-        this.precision = -1;
-        this.colons = -1;
-        this.padding = '\0';
-        this.modifier = '\0';
-        this.isAvailableForFormatting = true;
-        this.isAvailableForParsing = true;
-
-        this.original = ordinaryCharacters;
-
-        this.ordinaryCharacters = ordinaryCharacters;
     }
 
     static PosixTimeFormatSpecification ordinaryCharacters(final String ordinaryCharacters) {
-        return new PosixTimeFormatSpecification(ordinaryCharacters);
+        return new PosixTimeFormatSpecification(
+                PosixTimeFormatConversionType.LITERAL,  // type
+                false,  // upperCase
+                false,  // changeCase
+                -1,  // precision
+                -1,  // colons
+                '\0',  // padding
+                '\0',  // modifier
+                true,  // isAvailableForFormatting
+                true,  // isAvailableForParsing
+                ordinaryCharacters);  // original
     }
 
     static PosixTimeFormatSpecification conversion(
-            final char ch,
+            final PosixTimeFormatConversionType type,
             final boolean upperCase,
             final boolean changeCase,
             final int precision,
@@ -88,16 +84,16 @@ final class PosixTimeFormatSpecification {
             final char modifier,
             final String original) {
         return new PosixTimeFormatSpecification(
-                PosixTimeFormatConversionType.valueOf(ch),
-                upperCase,
-                changeCase,
-                precision,
-                colons,
-                padding,
-                modifier,
-                true,
-                true,
-                original);
+                type,  // type
+                upperCase,  // upperCase
+                changeCase,  // changeCase
+                precision,  // precision
+                colons,  // colons
+                padding,  // padding
+                modifier,  // modifier
+                true,  // isAvailableForFormatting
+                true,  // isAvailableForParsing
+                original);  // original
     }
 
     static class ConversionBuilder {
@@ -186,8 +182,26 @@ final class PosixTimeFormatSpecification {
         }
 
         switch (this.type) {
+            case LITERAL:
+                formatterBuilder.appendLiteral(this.original);
+                return true;
             case DAY_OF_WEEK_TEXT_SHORT:
+                if (this.padding == '0' || this.upperCase || this.changeCase) {
+                    return false;
+                }
+                if (this.precision >= 0) {
+                    formatterBuilder.padNext(this.precision, this.padding);
+                }
                 formatterBuilder.appendText(ChronoField.DAY_OF_WEEK, TextStyle.SHORT);
+                return true;
+            case DAY_OF_WEEK_TEXT_FULL:
+                if (this.padding == '0' || this.upperCase || this.changeCase) {
+                    return false;
+                }
+                if (this.precision >= 0) {
+                    formatterBuilder.padNext(this.precision, this.padding);
+                }
+                formatterBuilder.appendText(ChronoField.DAY_OF_WEEK, TextStyle.FULL);
                 return true;
             default:
                 break;
@@ -222,8 +236,7 @@ final class PosixTimeFormatSpecification {
                 && Objects.equals(this.modifier, other.modifier)
                 && Objects.equals(this.isAvailableForFormatting, other.isAvailableForFormatting)
                 && Objects.equals(this.isAvailableForParsing, other.isAvailableForParsing)
-                && Objects.equals(this.original, other.original)
-                && Objects.equals(this.ordinaryCharacters, other.ordinaryCharacters);
+                && Objects.equals(this.original, other.original);
     }
 
     @Override
@@ -238,12 +251,15 @@ final class PosixTimeFormatSpecification {
                 this.modifier,
                 this.isAvailableForFormatting,
                 this.isAvailableForParsing,
-                this.original,
-                this.ordinaryCharacters);
+                this.original);
     }
 
     @Override
     public String toString() {
+        if (this.type == PosixTimeFormatConversionType.LITERAL) {
+            return this.original;
+        }
+
         final StringBuilder builder = new StringBuilder().append("<").append(this.original);
         if (this.upperCase) {
             builder.append(":uppercase");
@@ -286,6 +302,4 @@ final class PosixTimeFormatSpecification {
     private final boolean isAvailableForParsing;
 
     private final String original;
-
-    private final String ordinaryCharacters;
 }
