@@ -43,11 +43,12 @@ class TryStrftime {
             final int secondOfMinute,
             final int dayOfWeek,
             final int dayOfYear,
-            final int isDst) {
+            final int isDst,
+            final String locale) {
         final List<String> result;
         try {
             result = this.invoke(
-                    format, year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, dayOfWeek, dayOfYear, isDst);
+                    format, year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, dayOfWeek, dayOfYear, isDst, locale);
         } catch (final IOException ex) {
             throw new UncheckedIOException(ex);
         } catch (final InterruptedException ex) {
@@ -67,7 +68,8 @@ class TryStrftime {
             final int secondOfMinute,
             final int dayOfWeek,
             final int dayOfYear,
-            final int isDst) throws IOException, InterruptedException {
+            final int isDst,
+            final String locale) throws IOException, InterruptedException {
         final ProcessBuilder processBuilder = new ProcessBuilder(
                 this.path,
                 format,
@@ -79,7 +81,8 @@ class TryStrftime {
                 "" + secondOfMinute,
                 "" + dayOfWeek,
                 "" + dayOfYear,
-                "" + isDst);
+                "" + isDst,
+                locale);
         final Map<String, String> environment = processBuilder.environment();
         environment.put("TZ", "UTC");
 

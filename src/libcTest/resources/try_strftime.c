@@ -1,3 +1,4 @@
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,10 +7,13 @@ int main(int argc, char **argv) {
   char s[8192];
   struct tm tm;
 
-  if (argc <= 10) {
+  if (argc <= 11) {
     fprintf(stderr, "ERROR: too few arguments.\n");
     return -1;
   }
+
+  setlocale(LC_TIME, argv[11]);
+  setlocale(LC_ALL, argv[11]);
 
   tm.tm_sec = atoi(argv[7]);
   tm.tm_min = atoi(argv[6]);

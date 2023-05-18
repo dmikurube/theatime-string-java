@@ -29,10 +29,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 public class TestPosixTimeFormatLibc {
     @ParameterizedTest
     @CsvSource({
-            "%a,2006,1,2,15,4,5,MONDAY,2,0",
-            "%10a,2006,1,2,15,4,5,MONDAY,2,0",
-            "%A,2006,1,2,15,4,5,MONDAY,2,0",
-            "%10A,2006,1,2,15,4,5,MONDAY,2,0"
+            "%a,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%10a,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%A,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%10A,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%b,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%10b,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%B,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%10B,2006,1,2,15,4,5,MONDAY,2,0,C",
     })
     public void test(
             final String format,
@@ -44,7 +48,8 @@ public class TestPosixTimeFormatLibc {
             final String secondOfMinute,
             final String dayOfWeek,
             final String dayOfYear,
-            final String isDst) {
+            final String isDst,
+            final String locale) {
         assertStrftime(format,
                        Integer.parseInt(year),
                        Integer.parseInt(monthOfYear),
@@ -54,7 +59,8 @@ public class TestPosixTimeFormatLibc {
                        Integer.parseInt(secondOfMinute),
                        DayOfWeek.valueOf(dayOfWeek),
                        Integer.parseInt(dayOfYear),
-                       Integer.parseInt(isDst));
+                       Integer.parseInt(isDst),
+                       locale);
     }
 
     private static void assertStrftime(
@@ -67,11 +73,22 @@ public class TestPosixTimeFormatLibc {
             final int secondOfMinute,
             final DayOfWeek dayOfWeek,
             final int dayOfYear,
-            final int isDst) {
+            final int isDst,
+            final String locale) {
         final String pathTryStrftime = System.getProperty("libcTestTryStrftime");
         assertNotNull(pathTryStrftime);
         final String expectedFormatted = new TryStrftime(pathTryStrftime).strftime(
-                format, year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, dayOfWeek.getValue(), dayOfYear, isDst);
+                format,
+                year,
+                monthOfYear,
+                dayOfMonth,
+                hourOfDay,
+                minuteOfHour,
+                secondOfMinute,
+                dayOfWeek.getValue(),
+                dayOfYear,
+                isDst,
+                locale);
 
         final DateTimeFormatter actualFormatter = PosixTimeFormat.compileToDateTimeFormatter(format);
         final OffsetDateTime actualDateTime = OffsetDateTime.of(

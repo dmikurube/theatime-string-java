@@ -33,7 +33,9 @@ public final class PosixTimeFormat {
         final List<PosixTimeFormatSpecification> specifications = PosixTimeFormatTokenizer.tokenize(format, options);
         final DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
         for (final PosixTimeFormatSpecification specification : specifications) {
-            specification.appendToDateTimeFormatterBuilder(builder);
+            if (!specification.appendToDateTimeFormatterBuilder(builder)) {
+                throw new IllegalArgumentException("Invalid format for java.time.format.DateTimeFormatter.");
+            }
         }
         return builder.toFormatter();
     }

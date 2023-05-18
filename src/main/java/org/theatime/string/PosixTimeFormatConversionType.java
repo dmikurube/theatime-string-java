@@ -16,10 +16,6 @@
 
 package org.theatime.string;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * The type of conversion to be applied by POSIX {@code strftime} and {@code strptime}.
  *
@@ -75,7 +71,7 @@ enum PosixTimeFormatConversionType {
      *
      * <p>Parsing - Replaced by the locale's appropriate date and time representation.
      */
-    DATE_AND_TIME,  // TODO: Revisit it.
+    COMPOSITE_LOCAL_DATE_TIME,
 
     /**
      * {@code %C}
@@ -377,42 +373,4 @@ It is expected that in a future version of this standard the default century inf
      */
     LITERAL_PERCENT,
     ;
-
-    /*
-    PosixTimeFormatConversionType(final char character) {
-        this.character = character;
-    }
-    */
-
-    /*
-    @Override
-    public String toString() {
-        return  + this.character;
-    }
-    */
-
-    /*
-    public static PosixTimeFormatConversionType valueOf(final char ch) {
-        final PosixTimeFormatConversionType value = MAP.get(ch);
-        if (value == null) {
-            throw new IllegalArgumentException(
-                    String.format("No format conversion specification for: 0x%x ('%c')", (int) ch, ch));
-        }
-        return value;
-    }
-
-    static {
-        final HashMap<Character, PosixTimeFormatConversionType> map = new HashMap<>();
-        for (final PosixTimeFormatConversionType value : values()) {
-            if (null != map.putIfAbsent(value.character, value)) {
-                throw new RuntimeException("Duplicated character assignment in PosixTimeFormatConversionType.");
-            }
-        }
-        MAP = Collections.unmodifiableMap(map);
-    }
-
-    private static final Map<Character, PosixTimeFormatConversionType> MAP;
-
-    final char character;
-    */
 }

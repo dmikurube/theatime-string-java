@@ -127,7 +127,7 @@ final class PosixTimeFormatTokenizer {
 
                 case 'c':  // TODO: Get expanded.
                     this.pos++;
-                    return builder.build(PosixTimeFormatConversionType.DATE_AND_TIME, ' ',
+                    return builder.build(PosixTimeFormatConversionType.COMPOSITE_LOCAL_DATE_TIME, ' ',
                                          this.format.substring(posPercent, this.pos));
 
                 case 'C':  // TODO: Rename.
