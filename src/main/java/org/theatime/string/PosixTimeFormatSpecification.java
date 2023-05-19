@@ -22,6 +22,13 @@ import java.time.temporal.ChronoField;
 import java.util.Objects;
 
 /**
+ * Represents a conversion specification, or ordinary characters, in POSIX {@code strftime} and {@code strptime} formats.
+ *
+ * <p>For example, conversion specifications such as {@code "%A"}, {@code "%-h"}, {@code "%04Y"}, or
+ * ordinary characters such as {@code "T"}, {@code ":"}, {@code "hour"}, or {@code "時"}.
+ *
+ * <p>It assumes that it is running is in the "C" or "POSIX" locale.
+ *
  * @see <a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html">strftime - The Open Group Base Specifications Issue 6 IEEE Std 1003.1, 2004 Edition</a>
  * @see <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime - The Open Group Base Specifications Issue 7, 2018 edition IEEE Std 1003.1-2017 (Revision of IEEE Std 1003.1-2008)</a>
  * @see <a href="https://pubs.opengroup.org/onlinepubs/007904875/functions/strptime.html">strptime - The Open Group Base Specifications Issue 6 IEEE Std 1003.1, 2004 Edition</a>
@@ -221,7 +228,18 @@ final class PosixTimeFormatSpecification {
                 }
                 formatterBuilder.appendText(ChronoField.MONTH_OF_YEAR, TextStyle.FULL);
                 return true;
-            case COMPOSITE_LOCAL_DATE_TIME:  // TODO: Conside Locale.
+            case COMPOSITE_LOCAL_DATE_TIME:
+                // In the C or POSIX locale, the E and O modifiers are ignored and
+                // the replacement strings for the following specifiers are:
+                //
+                // ...
+                //   ...
+                // %c
+                //   Equivalent to %a %b %e %T %Y.
+                //
+                // strftime, strftime_l - convert date and time to a string
+                // The Open Group Base Specifications Issue 7, 2018 edition
+                // https://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html#tag_16_576_07
                 if (this.padding == '0' || this.upperCase || this.changeCase) {
                     return false;
                 }
