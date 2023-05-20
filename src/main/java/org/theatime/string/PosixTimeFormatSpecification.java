@@ -243,10 +243,20 @@ final class PosixTimeFormatSpecification {
                 if (this.padding == '0' || this.upperCase || this.changeCase) {
                     return false;
                 }
-                if (this.precision >= 0) {
-                    formatterBuilder.padNext(this.precision, this.padding);
-                }
-                formatterBuilder.appendText(ChronoField.MONTH_OF_YEAR, TextStyle.FULL);
+                formatterBuilder.appendText(ChronoField.DAY_OF_WEEK, TextStyle.SHORT);
+                formatterBuilder.appendLiteral(" ");
+                formatterBuilder.appendText(ChronoField.MONTH_OF_YEAR, TextStyle.SHORT);
+                formatterBuilder.appendLiteral(" ");
+                formatterBuilder.padNext(2, ' ');
+                formatterBuilder.appendValue(ChronoField.DAY_OF_MONTH);
+                formatterBuilder.appendLiteral(" ");
+                formatterBuilder.appendValue(ChronoField.HOUR_OF_DAY, 2);
+                formatterBuilder.appendLiteral(":");
+                formatterBuilder.appendValue(ChronoField.MINUTE_OF_HOUR, 2);
+                formatterBuilder.appendLiteral(":");
+                formatterBuilder.appendValue(ChronoField.SECOND_OF_MINUTE, 2);
+                formatterBuilder.appendLiteral(" ");
+                formatterBuilder.appendValue(ChronoField.YEAR, 4);
                 return true;
             default:
                 break;

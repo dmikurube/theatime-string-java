@@ -37,6 +37,7 @@ public class TestPosixTimeFormatLibc {
             "%10b,2006,1,2,15,4,5,MONDAY,2,0,C",
             "%B,2006,1,2,15,4,5,MONDAY,2,0,C",
             "%10B,2006,1,2,15,4,5,MONDAY,2,0,C",
+            "%c,2006,1,2,15,4,5,MONDAY,2,0,C",
     })
     public void test(
             final String format,
