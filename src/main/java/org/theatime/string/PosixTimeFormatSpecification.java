@@ -17,6 +17,7 @@
 package org.theatime.string;
 
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.util.Objects;
@@ -256,8 +257,10 @@ final class PosixTimeFormatSpecification {
                 formatterBuilder.appendLiteral(":");
                 formatterBuilder.appendValue(ChronoField.SECOND_OF_MINUTE, 2);
                 formatterBuilder.appendLiteral(" ");
-                formatterBuilder.appendValue(ChronoField.YEAR, 4);
+                formatterBuilder.appendValue(ChronoField.YEAR, 4, 19, SignStyle.NORMAL);
                 return true;
+            // case 99, 00, 01:
+            //     uu      2      appendValueReduced(ChronoField.YEAR, 2, 2000);
             default:
                 break;
         }
