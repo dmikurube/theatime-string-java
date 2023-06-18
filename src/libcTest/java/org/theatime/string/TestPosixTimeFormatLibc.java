@@ -39,7 +39,7 @@ public class TestPosixTimeFormatLibc {
             "%10B,2006,1,2,15,4,5,MONDAY,2,0,C",
             "%c,2006,1,2,15,4,5,MONDAY,2,0,C",
             "%c,9999,1,2,15,4,5,SATURDAY,2,0,C",
-            // "%c,10000,1,2,15,4,5,SUNDAY,2,0,C",
+            // "%c,10000,1,2,15,4,5,SUNDAY,2,0,C",  // libc may not work for this case -- the day of week to be: "?"
     })
     public void test(
             final String format,
